@@ -12,5 +12,5 @@ app.use(
 );
 
 app.listen(3030, () => {
-  console.log("App started!");
+  console.log("App running on PORT -> 3030!");
 });
