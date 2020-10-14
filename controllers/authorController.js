@@ -7,3 +7,8 @@ exports.addAuthor = async ({ name, age }) => {
   });
   return addAuthor;
 };
+
+exports.findAuthorById = async ({ authorId }) => {
+  const findOne = await Author.findById(authorId);
+  return findOne;
+};
