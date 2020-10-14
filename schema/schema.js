@@ -1,6 +1,7 @@
 const graphql = require("graphql");
 const _ = require("lodash");
 const authorController = require("../controllers/authorController");
+const bookController = require("../controllers/bookController");
 
 const {
   GraphQLObjectType,
@@ -8,6 +9,7 @@ const {
   GraphQLSchema,
   GraphQLInt,
   GraphQLList,
+  GraphQLID,
 } = graphql;
 
 const books = [
@@ -28,7 +30,7 @@ const authors = [
 const BookType = new GraphQLObjectType({
   name: "Book",
   fields: () => ({
-    id: { type: GraphQLString },
+    id: { type: GraphQLID },
     name: { type: GraphQLString },
     genre: { type: GraphQLString },
     author: {
@@ -43,7 +45,7 @@ const BookType = new GraphQLObjectType({
 const AuthorType = new GraphQLObjectType({
   name: "Author",
   fields: () => ({
-    id: { type: GraphQLString },
+    id: { type: GraphQLID },
     name: { type: GraphQLString },
     age: { type: GraphQLInt },
     books: {
@@ -60,7 +62,7 @@ const RootQuery = new GraphQLObjectType({
   fields: {
     book: {
       type: BookType,
-      args: { id: { type: GraphQLString } },
+      args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return _.find(books, { id: args.id });
       },
@@ -97,8 +99,20 @@ const Mutation = new GraphQLObjectType({
         age: { type: GraphQLInt },
       },
       async resolve(parent, args) {
-        const addResolve = await authorController.addAuthor(args);
-        return addResolve;
+        const addAuthor = await authorController.addAuthor(args);
+        return addAuthor;
+      },
+    },
+    addBook: {
+      type: BookType,
+      args: {
+        name: { type: GraphQLString },
+        genre: { type: GraphQLString },
+        authorId: { type: GraphQLID },
+      },
+      async resolve(parent, args) {
+        const addBook = await bookController.addBook(args);
+        return addBook;
       },
     },
   },
