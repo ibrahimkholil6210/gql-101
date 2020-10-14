@@ -1,5 +1,6 @@
 const graphql = require("graphql");
 const _ = require("lodash");
+const authorController = require("../controllers/authorController");
 
 const {
   GraphQLObjectType,
@@ -86,6 +87,24 @@ const RootQuery = new GraphQLObjectType({
   },
 });
 
+const Mutation = new GraphQLObjectType({
+  name: "Mutation",
+  fields: {
+    addAuthor: {
+      type: AuthorType,
+      args: {
+        name: { type: GraphQLString },
+        age: { type: GraphQLInt },
+      },
+      async resolve(parent, args) {
+        const addResolve = await authorController.addAuthor(args);
+        return addResolve;
+      },
+    },
+  },
+});
+
 module.exports = new GraphQLSchema({
   query: RootQuery,
+  mutation: Mutation,
 });
