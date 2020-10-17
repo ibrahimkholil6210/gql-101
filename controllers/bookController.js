@@ -1,5 +1,10 @@
 const Book = require("../models/Book");
 
+exports.books = async () => {
+  const books = await Book.find();
+  return books;
+};
+
 exports.addBook = async ({ name, genre, authorId }) => {
   const addBook = await Book.create({
     name,
