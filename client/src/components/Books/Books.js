@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { graphql } from "@apollo/react-hoc";
 import { gql } from "@apollo/client";
 
-const getBooksQuery = gql`
+export const getBooksQuery = gql`
   query GetBooks {
     books {
       name
