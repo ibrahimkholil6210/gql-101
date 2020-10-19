@@ -17,8 +17,8 @@ class BookList extends Component {
     if (!this.props.data.loading) {
       compWindow = (
         <ul>
-          {this.props.data.books.map((el, index) => (
-            <li key={index}>{el.name}</li>
+          {this.props.data.books.map((el) => (
+            <li key={el.id}>{el.name}</li>
           ))}
         </ul>
       );
