@@ -18,7 +18,9 @@ class BookList extends Component {
       compWindow = (
         <ul>
           {this.props.data.books.map((el) => (
-            <li key={el.id}>{el.name}</li>
+            <li key={el.id} onClick={(e) => this.props.clickHandler(el.id)}>
+              {el.name}
+            </li>
           ))}
         </ul>
       );
